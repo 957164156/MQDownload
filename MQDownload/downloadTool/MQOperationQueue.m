@@ -11,14 +11,14 @@
 #import "SMQRequest.h"
 @interface MQOperationManager()<NSURLSessionDownloadDelegate>
 
-//
-@property (nonatomic,strong)NSURLSessionDownloadTask *downloadTask;
-
-
 @property (nonatomic,strong)NSURLSession *backgroudSession;
 
 
 @property (strong, nonatomic) dispatch_queue_t downloadQueue;
+
+
+//是否有任务正在下载
+@property (nonatomic,assign,getter=isDownloading)BOOL downloading;
 
 @end
 #define IS_IOS10ORLATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10)
@@ -143,7 +143,9 @@ static MQOperationManager *manager = nil;
                 taskCount++;
                 hasTaskRun = YES;
                 [request.task resume];
-               
+                if (request.delegate && [request respondsToSelector:@selector(requestDownloadStart:)]) {
+                    [request.delegate requestDownloadStart:request];
+                }
             }else if (request.currentState == downloadState_pauseing) {//暂停状态
                 //不做任何操作
             }
@@ -170,11 +172,59 @@ static MQOperationManager *manager = nil;
  @param request 下载任务
  */
 - (void)pauseDownloadWithRequest:(SMQRequest *)request {
+    self.downloading = NO;
     request.currentState = downloadState_pauseing;
-    //重新查找任务的队列来创建下载
+    if (request.delegate && [request.delegate respondsToSelector:@selector(requestDownloadPause:)]) {
+        [request.delegate requestDownloadPause:request];
+    }
+    //
     [self startTaskForRequest];
 }
+/**
+ 恢复下载
+ 
+ @param request 从暂停中恢复下载
+ */
+- (void)resumeDownloadTaskWithRequest:(SMQRequest *)request {
+    //创建下载任务
+    NSURLSessionDownloadTask *task = nil;
+    if (request.resumeData) {//断点续传文件存在
+        if (IS_IOS10ORLATER) {
+            task = [self.backgroudSession downloadTaskWithCorrectResumeData:request.resumeData];
+        }else {
+            task = [self.backgroudSession downloadTaskWithResumeData:request.resumeData];
+        }
+    }else {
+        task = [self.backgroudSession downloadTaskWithRequest:request.request];
+    }
+    request.task = task;
+    request.currentState = downloadState_waiting;
+    //查看是否有任务在下载
+    if (!self.isDownloading) {//有任务在下载
+        [self addTaskQueueWithRequest:request];
+ 
+       }
+}
 
+/**
+ 开始下载
+
+ @param request 从等待状态开始下载
+ */
+- (void)playDownloadTaskWithRequest:(SMQRequest *)request {
+    dispatch_async(self.downloadQueue, ^{
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+        for (SMQRequest *DownRequest in self.taskList) {
+            if (DownRequest.currentState == downloadState_downloading) {
+                [DownRequest pauseDownloadTask];
+            }
+        }
+        dispatch_semaphore_signal(semaphore);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self startTaskForRequest];
+        });
+    });
+}
 #pragma mark  ==== 移除下载任务
 
 /**
@@ -210,6 +260,7 @@ static MQOperationManager *manager = nil;
 #pragma mark ================================= NSURLSessionDelegate
 
 - (void)URLSession:(NSURLSession *)session downloadTask:(nonnull NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(nonnull NSURL *)location {
+    self.downloading = NO;
     __block SMQRequest *matchingRequest = nil;
     [self.taskList enumerateObjectsUsingBlock:^(SMQRequest *request, NSUInteger idx, BOOL *stop) {
         if([request.task.currentRequest.URL.absoluteString isEqualToString:downloadTask.currentRequest.URL.absoluteString]) {
@@ -217,15 +268,16 @@ static MQOperationManager *manager = nil;
             [request deleteResumeData]; //移除断点续传缓存数据文件
             request.savePath = [request.savePath stringByAppendingPathComponent:request.saveFileName];
             NSError *error = nil;
+            NSLog(@"  %@",[location path]);
             if(![[NSFileManager defaultManager] moveItemAtPath:location.path toPath:request.savePath error:&error]) {
                
-//                if ([request.delegate respondsToSelector:@selector(requestDownloadFaild:aError:)]) {
-//                    [request.delegate requestDownloadFaild:request aError:error];
-//                }
+                if ([request.delegate respondsToSelector:@selector(requestDownloadFail:)]) {
+                    [request.delegate requestDownloadFail:request];
+                }
             }else {
-//                if ([request.delegate respondsToSelector:@selector(requestDownloadFinish:)]) {
-//                    [request.delegate requestDownloadFinish:request];
-//                }
+                if ([request.delegate respondsToSelector:@selector(requestDownloadFinish:)]) {
+                    [request.delegate requestDownloadFinish:request];
+                }
             }
             *stop = YES;
         }
@@ -242,7 +294,8 @@ static MQOperationManager *manager = nil;
       didWriteData:(int64_t)bytesWritten
  totalBytesWritten:(int64_t)totalBytesWritten
 totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
-    
+    //设置标志提示有任务正在下载
+    self.downloading = YES;
     NSLog(@"downloadTask:%lu percent:%.2f%%",(unsigned long)downloadTask.taskIdentifier,(CGFloat)totalBytesWritten / totalBytesExpectedToWrite * 100);
     NSString *strProgress = [NSString stringWithFormat:@"%.2f",(CGFloat)totalBytesWritten / totalBytesExpectedToWrite];
     float progress = (float)(((float)totalBytesWritten) / ((float)totalBytesExpectedToWrite));
@@ -251,11 +304,11 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
             if (!request.saveFileName || request.saveFileName.length <= 0) {
                 request.saveFileName = downloadTask.response.suggestedFilename;
             }
-            request.totoalData = totalBytesWritten;
-            request.didWriteData = bytesWritten;
-//            if ([request.delegate respondsToSelector:@selector(requestDownloading:)]) {
-//                [request.delegate requestDownloading:request];
-//            }
+            request.totoalData = totalBytesExpectedToWrite;
+            request.didWriteData = totalBytesWritten;
+            if ([request.delegate respondsToSelector:@selector(requestDownloading:)]) {
+                [request.delegate requestDownloading:request];
+            }
         }
     }];
 

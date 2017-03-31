@@ -7,18 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8834FC521E8E009F001862D0 /* DownloadTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8834FC511E8E009F001862D0 /* DownloadTableViewController.m */; };
+		8834FC551E8E00BF001862D0 /* DownloadViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8834FC541E8E00BF001862D0 /* DownloadViewCell.m */; };
+		8834FC671E8E4BCE001862D0 /* MQOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 8834FC621E8E4BCE001862D0 /* MQOperationQueue.m */; };
+		8834FC681E8E4BCE001862D0 /* NSURLSession+CorrectedResumeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8834FC641E8E4BCE001862D0 /* NSURLSession+CorrectedResumeData.m */; };
+		8834FC691E8E4BCE001862D0 /* SMQRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8834FC661E8E4BCE001862D0 /* SMQRequest.m */; };
 		888875211E8CFEC200660C60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 888875201E8CFEC200660C60 /* main.m */; };
 		888875241E8CFEC200660C60 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 888875231E8CFEC200660C60 /* AppDelegate.m */; };
 		888875271E8CFEC200660C60 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 888875261E8CFEC200660C60 /* ViewController.m */; };
 		8888752A1E8CFEC200660C60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 888875281E8CFEC200660C60 /* Main.storyboard */; };
 		8888752C1E8CFEC200660C60 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8888752B1E8CFEC200660C60 /* Assets.xcassets */; };
 		8888752F1E8CFEC200660C60 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8888752D1E8CFEC200660C60 /* LaunchScreen.storyboard */; };
-		8888753D1E8CFED800660C60 /* MQOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 888875381E8CFED800660C60 /* MQOperationQueue.m */; };
-		8888753E1E8CFED800660C60 /* NSURLSession+CorrectedResumeData.m in Sources */ = {isa = PBXBuildFile; fileRef = 8888753A1E8CFED800660C60 /* NSURLSession+CorrectedResumeData.m */; };
-		8888753F1E8CFED800660C60 /* SMQRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8888753C1E8CFED800660C60 /* SMQRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8834FC501E8E009F001862D0 /* DownloadTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadTableViewController.h; sourceTree = "<group>"; };
+		8834FC511E8E009F001862D0 /* DownloadTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadTableViewController.m; sourceTree = "<group>"; };
+		8834FC531E8E00BF001862D0 /* DownloadViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadViewCell.h; sourceTree = "<group>"; };
+		8834FC541E8E00BF001862D0 /* DownloadViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DownloadViewCell.m; sourceTree = "<group>"; };
+		8834FC611E8E4BCE001862D0 /* MQOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQOperationQueue.h; sourceTree = "<group>"; };
+		8834FC621E8E4BCE001862D0 /* MQOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQOperationQueue.m; sourceTree = "<group>"; };
+		8834FC631E8E4BCE001862D0 /* NSURLSession+CorrectedResumeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+CorrectedResumeData.h"; sourceTree = "<group>"; };
+		8834FC641E8E4BCE001862D0 /* NSURLSession+CorrectedResumeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+CorrectedResumeData.m"; sourceTree = "<group>"; };
+		8834FC651E8E4BCE001862D0 /* SMQRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMQRequest.h; sourceTree = "<group>"; };
+		8834FC661E8E4BCE001862D0 /* SMQRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMQRequest.m; sourceTree = "<group>"; };
 		8888751C1E8CFEC200660C60 /* MQDownload.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MQDownload.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		888875201E8CFEC200660C60 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		888875221E8CFEC200660C60 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -29,12 +41,6 @@
 		8888752B1E8CFEC200660C60 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8888752E1E8CFEC200660C60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		888875301E8CFEC200660C60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		888875371E8CFED800660C60 /* MQOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MQOperationQueue.h; sourceTree = "<group>"; };
-		888875381E8CFED800660C60 /* MQOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MQOperationQueue.m; sourceTree = "<group>"; };
-		888875391E8CFED800660C60 /* NSURLSession+CorrectedResumeData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLSession+CorrectedResumeData.h"; sourceTree = "<group>"; };
-		8888753A1E8CFED800660C60 /* NSURLSession+CorrectedResumeData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLSession+CorrectedResumeData.m"; sourceTree = "<group>"; };
-		8888753B1E8CFED800660C60 /* SMQRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMQRequest.h; sourceTree = "<group>"; };
-		8888753C1E8CFED800660C60 /* SMQRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMQRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +54,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8834FC601E8E4BCE001862D0 /* downloadTool */ = {
+			isa = PBXGroup;
+			children = (
+				8834FC611E8E4BCE001862D0 /* MQOperationQueue.h */,
+				8834FC621E8E4BCE001862D0 /* MQOperationQueue.m */,
+				8834FC631E8E4BCE001862D0 /* NSURLSession+CorrectedResumeData.h */,
+				8834FC641E8E4BCE001862D0 /* NSURLSession+CorrectedResumeData.m */,
+				8834FC651E8E4BCE001862D0 /* SMQRequest.h */,
+				8834FC661E8E4BCE001862D0 /* SMQRequest.m */,
+			);
+			path = downloadTool;
+			sourceTree = "<group>";
+		};
 		888875131E8CFEC200660C60 = {
 			isa = PBXGroup;
 			children = (
@@ -67,11 +86,15 @@
 		8888751E1E8CFEC200660C60 /* MQDownload */ = {
 			isa = PBXGroup;
 			children = (
-				888875361E8CFED800660C60 /* downloadTool */,
+				8834FC601E8E4BCE001862D0 /* downloadTool */,
 				888875221E8CFEC200660C60 /* AppDelegate.h */,
 				888875231E8CFEC200660C60 /* AppDelegate.m */,
 				888875251E8CFEC200660C60 /* ViewController.h */,
 				888875261E8CFEC200660C60 /* ViewController.m */,
+				8834FC501E8E009F001862D0 /* DownloadTableViewController.h */,
+				8834FC511E8E009F001862D0 /* DownloadTableViewController.m */,
+				8834FC531E8E00BF001862D0 /* DownloadViewCell.h */,
+				8834FC541E8E00BF001862D0 /* DownloadViewCell.m */,
 				888875281E8CFEC200660C60 /* Main.storyboard */,
 				8888752B1E8CFEC200660C60 /* Assets.xcassets */,
 				8888752D1E8CFEC200660C60 /* LaunchScreen.storyboard */,
@@ -87,19 +110,6 @@
 				888875201E8CFEC200660C60 /* main.m */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		888875361E8CFED800660C60 /* downloadTool */ = {
-			isa = PBXGroup;
-			children = (
-				888875371E8CFED800660C60 /* MQOperationQueue.h */,
-				888875381E8CFED800660C60 /* MQOperationQueue.m */,
-				888875391E8CFED800660C60 /* NSURLSession+CorrectedResumeData.h */,
-				8888753A1E8CFED800660C60 /* NSURLSession+CorrectedResumeData.m */,
-				8888753B1E8CFED800660C60 /* SMQRequest.h */,
-				8888753C1E8CFED800660C60 /* SMQRequest.m */,
-			);
-			path = downloadTool;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,10 +183,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8834FC551E8E00BF001862D0 /* DownloadViewCell.m in Sources */,
+				8834FC691E8E4BCE001862D0 /* SMQRequest.m in Sources */,
+				8834FC671E8E4BCE001862D0 /* MQOperationQueue.m in Sources */,
+				8834FC681E8E4BCE001862D0 /* NSURLSession+CorrectedResumeData.m in Sources */,
 				888875271E8CFEC200660C60 /* ViewController.m in Sources */,
-				8888753F1E8CFED800660C60 /* SMQRequest.m in Sources */,
-				8888753E1E8CFED800660C60 /* NSURLSession+CorrectedResumeData.m in Sources */,
-				8888753D1E8CFED800660C60 /* MQOperationQueue.m in Sources */,
+				8834FC521E8E009F001862D0 /* DownloadTableViewController.m in Sources */,
 				888875241E8CFEC200660C60 /* AppDelegate.m in Sources */,
 				888875211E8CFEC200660C60 /* main.m in Sources */,
 			);
@@ -297,6 +309,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MQDownload/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunmingqing.MQDownload;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -308,6 +321,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = MQDownload/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.sunmingqing.MQDownload;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -333,6 +347,7 @@
 				888875351E8CFEC200660C60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

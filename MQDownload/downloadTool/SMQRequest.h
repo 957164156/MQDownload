@@ -17,7 +17,8 @@ typedef enum {
     downloadState_willing
 }DownloadState;
 @protocol  SMQRequestDelegate<NSObject>
-//开始下载
+@optional
+//开始下载（适用于任务开始）
 - (void)requestDownloadStart:(SMQRequest *)request;
 //下载失败
 - (void)requestDownloadFail:(SMQRequest *)request;
@@ -25,7 +26,8 @@ typedef enum {
 - (void)requestDownloadCancle:(SMQRequest *)request;
 //暂停
 - (void)requestDownloadPause:(SMQRequest *)request;
-
+//等待下载（将任务从暂停变为等待）
+- (void)requestDownloadWait:(SMQRequest *)request;
 //完成
 - (void)requestDownloadFinish:(SMQRequest *)request;
 
@@ -45,9 +47,10 @@ typedef enum {
 
 @property (nonatomic,strong,readonly)NSData *resumeData;          //断点续传
 
-@property (nonatomic,assign)long long totoalData;                   //下载文件的总长度
-@property (nonatomic,assign)long long didWriteData;                 //已经写入的长度
+@property (nonatomic,assign)int64_t totoalData;                   //下载文件的总长度
+@property (nonatomic,assign)int64_t didWriteData;                 //已经写入的长度
 
+@property (nonatomic,strong)NSIndexPath *indexPath;
 
 //代理方法
 @property (nonatomic,assign)id<SMQRequestDelegate> delegate;
@@ -67,8 +70,8 @@ typedef enum {
 @property (nonatomic,strong)id  Model;
 
 //创建下载请求
-+ (instancetype)requestWithName:(NSString *)name url:(NSString *)url;
-
+//+ (instancetype)requestWithName:(NSString *)name url:(NSString *)url;
++ (SMQRequest *)initWithURL:(NSString *)url;
 //开始下载任务
 - (void)startDownloadTask;
 
@@ -85,4 +88,6 @@ typedef enum {
 
 //移除断点续传文件
 - (void)deleteResumeData;
+
+- (void)PlayDownloadTask;
 @end

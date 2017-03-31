@@ -86,7 +86,19 @@
 
 @end
 @implementation SMQRequest
-
+- (void)dealloc
+{
+    self.delegate = nil;
+    self.url = nil;
+    self.request = nil;
+   
+    if (_savePath) {
+        _savePath = nil;
+    }
+    self.saveFileName = nil;
+    self.resumeData = nil;
+    self.task = nil;
+}
 /**
 * 实例化请求对象 已经存在则返回 不存在则创建一个并返回
 **/
@@ -115,6 +127,15 @@
     return self;
 }
 
+-(NSString *)savePath
+{
+    if (!_savePath) {
+        _savePath = [DownloadPathUtils downloadPath];
+    }
+    return _savePath;
+}
+
+
 //开始下载任务
 - (void)startDownloadTask {
     [self.manager startDownloadWithRequest:self];
@@ -123,7 +144,6 @@
 //暂停下载任务
 - (void)pauseDownloadTask {
     if (self.currentState == downloadState_pauseing) {//当前状态本来就是暂停
-    
         return;
     }
     //
@@ -135,6 +155,11 @@
         //将resume写入文件，以便回复
         [weakSelf resumeDataWriteToFile];
     }];
+}
+
+- (void)PlayDownloadTask {
+    [self.manager playDownloadTaskWithRequest:self];
+ 
 }
 //取消下载任务
 - (void)cancleDownloadTask {
@@ -150,13 +175,10 @@
     if (self.currentState != downloadState_pauseing) {
         return;
     }
-   [self.manager startDownloadWithRequest:self];
+   [self.manager resumeDownloadTaskWithRequest:self];
     self.resumeData = nil;
 }
-//更换正在下载的任务
-- (void)changeDownloadTask {
-    
-}
+
 #pragma mark  ======  resumedata的操作
 //断点缓存数据写入文件
 - (void)resumeDataWriteToFile
